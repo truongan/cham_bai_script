@@ -17,6 +17,8 @@ function by_size(){
 	return $size
 }
 
+
+
 if [ -d $1 ]
 then
 	sub_dirs=$1
@@ -57,13 +59,15 @@ do
 		#put the converted file in temp dir
 		enca -L none -x UTF-8 < $i > "$TKDIR/$a.cpp"
 
-		#Do some auto replace ment
+		#Do some auto replacement
 		sed -i 's/\#include \"stdafx.h\"/ /g' "$TKDIR/$a.cpp"
 		sed -i 's/stdafx.h/stdio.h/g' "$TKDIR/$a.cpp"
 		sed -i 's/conio.h/stdio.h/g' "$TKDIR/$a.cpp"
 		sed -i 's/getch()/getchar()/g' "$TKDIR/$a.cpp"
 		sed -i 's/int _tmain(int argc, _TCHAR\* argv\[\])/int main()/g' "$TKDIR/$a.cpp"
 		sed -i 's/void main()/int main()/g' "$TKDIR/$a.cpp"
+		sed -i 's/conio.h/stdio.h/g' "$TKDIR/$a.cpp"
+		sed -i 's/getch()/getchar()/g' "$TKDIR/$a.cpp"
 		
 		#Get the size of the converted file
 		sized=$(by_size "$TKDIR/$a.cpp")
