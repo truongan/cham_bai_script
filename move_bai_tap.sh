@@ -46,7 +46,7 @@ TKDIR=`mktemp -d`
 for i in $list
 do
 	#echo $i
-	a=`echo $i | grep -o "[0-9][0-9]520[0-9][0-9][0-9]" `;
+	a=`echo $i | grep -o "[0-9][0-9]52[0-9][0-9][0-9][0-9]" `;
 	#echo $a;
 
 
@@ -59,6 +59,9 @@ do
 
 		#Do some auto replace ment
 		sed -i 's/\#include \"stdafx.h\"/ /g' "$TKDIR/$a.cpp"
+		sed -i 's/stdafx.h/stdio.h/g' "$TKDIR/$a.cpp"
+		sed -i 's/conio.h/stdio.h/g' "$TKDIR/$a.cpp"
+		sed -i 's/getch()/getchar()/g' "$TKDIR/$a.cpp"
 		sed -i 's/int _tmain(int argc, _TCHAR\* argv\[\])/int main()/g' "$TKDIR/$a.cpp"
 		sed -i 's/void main()/int main()/g' "$TKDIR/$a.cpp"
 		
