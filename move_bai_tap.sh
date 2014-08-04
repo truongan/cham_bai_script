@@ -1,4 +1,4 @@
-()function by_size(){
+function by_size(){
 	local filename=$1
 	size=`wc -c $filename | awk '{print $1}'`
 	if [ "$size" -lt 200 ]; then

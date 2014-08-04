@@ -18,16 +18,24 @@ else
 	read binary
 fi
 
+flag=1
 for i in $test_data/*.in
 do
-	cat $i
 	answer=$(cat ${i%.*}.ans)
 	output=$(cat $i | ./$binary)
 	trimmed=$(echo $output |  awk '{print $NF}' | sed 's/[^0-9]//g')
-	if [ "$answer" = "$trimmed" ] 
+	if [ "$answer" != "$trimmed" ] 
 	then
-		echo "TRUE"
-	else
+		#echo "TRUE"
+	#else
+		cat $i
 		echo "answer = $answer BUT output = $output"
+		flag=0
 	fi
 done
+
+if [ $flag = 1 ] 
+then
+	echo "$binary TRUE"
+fi
+
