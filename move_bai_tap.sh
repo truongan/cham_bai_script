@@ -1,4 +1,4 @@
-function by_size(){
+()function by_size(){
 	local filename=$1
 	size=`wc -c $filename | awk '{print $1}'`
 	if [ "$size" -lt 200 ]; then
@@ -61,9 +61,11 @@ do
 
 		#Do some auto replacement
 		sed -i 's/\#include \"stdafx.h\"/ /g' "$TKDIR/$a.cpp"
+		sed -i 's/stdafx.h/stdlib.h/g' "$TKDIR/$a.cpp"
+		sed -i 's/conio.h/stdio.h/g' "$TKDIR/$a.cpp"
+		sed -i 's/getch()/getchar()/g' "$TKDIR/$a.cpp"
 		sed -i 's/int _tmain(int argc, _TCHAR\* argv\[\])/int main()/g' "$TKDIR/$a.cpp"
 		sed -i 's/void main()/int main()/g' "$TKDIR/$a.cpp"
-		sed -i 's/conio.h/stdio.h/g' "$TKDIR/$a.cpp"
 		sed -i 's/getch()/getchar()/g' "$TKDIR/$a.cpp"
 		
 		#Get the size of the converted file
