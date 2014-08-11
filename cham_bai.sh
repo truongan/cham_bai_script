@@ -19,17 +19,21 @@ else
 fi
 
 flag=1
+count=0
+echo "testing $binary"
 for i in $test_data/*.in
 do
+	
 	answer=$(cat ${i%.*}.ans)
-	output=$(cat $i | ./$binary)
-	trimmed=$(echo $output |  awk '{print $NF}' | sed 's/[^0-9]//g')
-	if [ "$answer" != "$trimmed" ] 
+	output=$(timeout 3s cat $i | $binary)
+	#trimmed=$(echo $output |  awk '{print $NF}' | sed 's/[^0-9]//g')
+	trimmed=$(echo $output |  awk '{print $(NF-2) " " $(NF-1) " " $NF}' | sed 's/[^0-9 ]//g')
+	if [ "$answer" == "$trimmed" ] 
 	then
-		#echo "TRUE"
-	#else
+		let 'count = count + 1'
+	else
 		cat $i
-		echo "answer = $answer BUT output = $output"
+		echo "answer = $answer BUT output = $trimmed"
 		flag=0
 	fi
 done
