@@ -18,19 +18,19 @@ else
 	read binary
 fi
 
+echo "Testing $binary"
 flag=1
 count=0
-echo "testing $binary"
 for i in $test_data/*.in
 do
-	
+	#cat $i;
 	answer=$(cat ${i%.*}.ans)
-	output=$(timeout 3s cat $i | $binary)
-	#trimmed=$(echo $output |  awk '{print $NF}' | sed 's/[^0-9]//g')
+	output=$(timeout 30 bash -c "cat $i | $binary")
 	trimmed=$(echo $output |  awk '{print $(NF-2) " " $(NF-1) " " $NF}' | sed 's/[^0-9 ]//g')
-	if [ "$answer" == "$trimmed" ] 
+	if [ "$answer" = "$trimmed" ] 
 	then
-		let 'count = count + 1'
+		let "count=count+1"
+
 	else
 		cat $i
 		echo "answer = $answer BUT output = $trimmed"
