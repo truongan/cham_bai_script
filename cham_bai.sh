@@ -20,7 +20,7 @@ fi
 
 echo "Testing $binary"
 flag=1
-count=1
+count=0
 for i in $test_data/*.in
 do
 	#cat $i;
@@ -31,6 +31,7 @@ do
 	if [ "$answer" = "$trimmed" ] 
 	then
 		let "count=count+1"
+
 	else
 		cat $i
 		echo "answer = $answer BUT output = $output"
