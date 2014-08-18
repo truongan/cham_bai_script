@@ -32,8 +32,14 @@ do
 	then
 		let "count=count+1"
 	else
+<<<<<<< HEAD
+		cat $i
+		echo "answer = $answer BUT output = $output"
+=======
+		#cat $i
 		echo $i;
 		echo "answer = $answer BUT output = $trimmed"
+>>>>>>> 6593bb33ec69b08adcf09d972119e07ffbfbc32e
 		flag=0
 	fi
 done
