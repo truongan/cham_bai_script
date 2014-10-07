@@ -26,14 +26,17 @@ do
 	#cat $i;
 	answer=$(cat ${i%.*}.ans)
 	output=$(timeout 15 bash -c "cat $i | $binary")
-	trimmed=$(echo $output |  awk '{print $(NF-1) " " $NF}' | sed 's/[^0-9 ]//g')
+	#trimmed=$(echo $output |  awk '{print $(NF-1) " " $NF}' | sed 's/[^0-9 -]//g')
 	#trimmed=$(echo $output |  awk '{print $NF}' | sed 's/[^0-9]//g')
+	trimmed=$output
 	if [ "$answer" = "$trimmed" ] 
 	then
 		let "count=count+1"
 	else
 		echo $i;
-		echo "answer = $answer BUT output = $trimmed"
+		#echo "answer = $answer BUT output = $trimmed"
+		#echo "answer = $answer BUT output = $output"
+		diff <(echo "$output")  <(echo "$answer")
 		flag=0
 	fi
 done
